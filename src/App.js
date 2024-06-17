@@ -1,40 +1,66 @@
-import logo from "./logo.svg";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
-import { getAxiosInstance } from "./APICalls/AxiosUtil";
-import { useEffect, useState } from "react";
+
+import Main from "./Components/Main";
+import Login from "./Components/Login";
+import AddProduct from "./Components/AddProduct";
+import Register from "./Components/Regitration";
+import AdminDashboard from "./Components/AdminDashboard";
+import UserDashboard from "./Components/UserDashboard";
+import Cart from "./Components/Cart";
+import AddToCart from "./Components/AddToCart";
+import CartItems from "./Components/CartItems";
+import Category from "./Components/Category";
 
 function App() {
-  const [carts, setCarts] = useState([]);
-
-  useEffect(() => {
-    getAxiosInstance()
-      .get("getCarts")
-      .then((response) => {
-        setCarts(response.data);
-      });
-  }, []);
   return (
-    <div>
-      <table className="carttable">
-        <tr>
-          <th className="tableheader">ID</th>
-          <th className="tableheader">User</th>
-          <th className="tableheader">Product</th>
-          <th className="tableheader">Amount</th>
-        </tr>
-        {carts.map((cart) => {
-          return (
-            <tr>
-              <td className="tabledata">{cart.id}</td>
-              <td className="tabledata">{cart.user}</td>
-              <td className="tabledata">{cart.product}</td>
-              <td className="tabledata">{cart.ammount}</td>
-            </tr>
-          );
-        })}
-      </table>
-    </div>
+    <>
+      <RouterProvider router={router} />
+    </>
   );
 }
+
+const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/",
+    element: <Main />,
+  },
+  {
+    path: "/addproduct",
+    element: <AddProduct />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/admindashboard",
+    element: <AdminDashboard />,
+  },
+  {
+    path: "/userdashboard",
+    element: <UserDashboard />,
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
+  },
+  {
+    path: "/addtocart",
+    element: <AddToCart />,
+  },
+  {
+    path: "/cartitems",
+    element: <CartItems />,
+  },
+  {
+    path: "/category",
+    element: <Category />,
+  },
+]);
 
 export default App;
