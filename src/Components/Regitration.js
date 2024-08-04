@@ -62,8 +62,8 @@ const Register = () => {
     getAxiosInstance()
       .post("register", formData)
       .then((response) => {
-        console.log(response.data);
-        navigate("/");
+        console.log("see registration response: ", response.data);
+        navigate("/login");
       })
       .finally(() => {
         setSubmitting(false);

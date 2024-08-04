@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { getAxiosInstance } from "../APICalls/AxiosUtil";
+import AuthContext from "../Contexts/AuthContext";
 function AddProduct() {
+  const { authToken } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     category_id: "",
     name: "",
@@ -23,7 +25,7 @@ function AddProduct() {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log("Submit ", formData);
-    getAxiosInstance()
+    getAxiosInstance(authToken)
       .post("addproduct", formData)
       .then((response) => {
         console.log(response.data);

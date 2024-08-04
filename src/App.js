@@ -11,12 +11,16 @@ import Cart from "./Components/Cart";
 import AddToCart from "./Components/AddToCart";
 import CartItems from "./Components/CartItems";
 import Category from "./Components/Category";
+import AuthContext from "./Contexts/AuthContext";
+import { useState } from "react";
 
 function App() {
+  const [authToken, setAuthToken] = useState("");
+
   return (
-    <>
+    <AuthContext.Provider value={{ authToken, setAuthToken }}>
       <RouterProvider router={router} />
-    </>
+    </AuthContext.Provider>
   );
 }
 
@@ -26,7 +30,7 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/",
+    path: "/main",
     element: <Main />,
   },
   {
@@ -34,7 +38,7 @@ const router = createBrowserRouter([
     element: <AddProduct />,
   },
   {
-    path: "/register",
+    path: "/",
     element: <Register />,
   },
   {

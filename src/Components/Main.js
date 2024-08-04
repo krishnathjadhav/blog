@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
@@ -8,8 +8,10 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { TailSpin } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { addItems } from "../Utils/cartSlice";
+import AuthContext from "../Contexts/AuthContext";
 
 function Main() {
+  const { authToken } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
   // const [carts, setCarts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +23,7 @@ function Main() {
   // console.log("role is ", role);
 
   useEffect(() => {
-    getAxiosInstance()
+    getAxiosInstance(authToken)
       .get("getproducts")
       .then((response) => {
         setProducts(response.data);
