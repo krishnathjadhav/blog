@@ -13,6 +13,7 @@ import CartItems from "./Components/CartItems";
 import Category from "./Components/Category";
 import AuthContext from "./Contexts/AuthContext";
 import { useState } from "react";
+import Error from "./Components/Error";
 
 function App() {
   const [authToken, setAuthToken] = useState("");
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
   {
     path: "/category",
     element: <Category />,
+  },
+  {
+    path: "/error",
+    element: <Error />,
   },
 ]);
 

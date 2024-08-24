@@ -11,7 +11,13 @@ import { addItems } from "../Utils/cartSlice";
 import AuthContext from "../Contexts/AuthContext";
 
 function Main() {
-  const { authToken } = useContext(AuthContext);
+  // const { authToken } = useContext(AuthContext);
+
+  // const authToken = localStorage.getItem("authToken");
+  // console.log("authToken from localStorage is", authToken);
+  const authToken = sessionStorage.getItem("authToken");
+  console.log("authToken from sessionStorage is", authToken);
+
   const [products, setProducts] = useState([]);
   // const [carts, setCarts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,15 +29,25 @@ function Main() {
   // console.log("role is ", role);
 
   useEffect(() => {
-    getAxiosInstance(authToken)
-      .get("getproducts")
-      .then((response) => {
-        setProducts(response.data);
-        console.log(response.data);
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-      });
+    if (!authToken) {
+      navigate("/error");
+    }
+
+    try {
+      getAxiosInstance(authToken)
+        .get("getproducts")
+        .then((response) => {
+          setProducts(response.data);
+          console.log(response.data);
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
+        });
+    } catch (error) {
+      console.error("An error occurred while fetching products:", error);
+      setLoading(false);
+      // navigate("/error");
+    }
   }, []);
 
   const cartItems = useSelector((store) => store.cart.items);

@@ -21,6 +21,10 @@ const Login = () => {
           const role = response.data.role;
           const authToken = response.data.token;
           setAuthToken(authToken);
+
+          localStorage.setItem("authToken", authToken);
+          sessionStorage.setItem("authToken", authToken);
+
           if (role === "ROLE_admin") {
             navigate("/admindashboard", { state: id });
           }
